@@ -1,0 +1,18 @@
+/* RatingCard.module.css */
+.card {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stars {
+    font-size: 24px;
+    color: #ffcc00;
+    margin-bottom: 16px;
+  }
+  
+  .feedback {
+    color: #666;
+  }
+  

@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import RatingCard from './components/RatingCard';
+import JobPage from './components/JobPage';
+import styles from './App.module.css';
+ import './index.css';
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className={styles.app}>
+        {/* Navigation Bar */}
+        <nav className={styles.navbar}>
+          <div className={styles.container}>
+            <h1 className={styles.logo}>Interview Platform</h1>
+            <ul className={styles.navLinks}>
+              <li><Link to="/" className={styles.link}>Home</Link></li>
+              <li><Link to="/pricing" className={styles.link}>Pricing</Link></li>
+              <li><Link to="/solutions" className={styles.link}>Solutions</Link></li>
+            </ul>
+          </div>
+        </nav>
+
+        {/* Body Section */}
+        <div className={styles.mainSection}>
+          <div className={styles.textSection}>
+            <h2 className={styles.title}>Start Your Interview</h2>
+            <p className={styles.subtitle}>Click below to begin the interview process</p>
+            <Link to="/job-description">
+              <button className={styles.startButton}>Start Interview</button>
+            </Link>
+          </div>
+
+          {/* Image */}
+          <div className={styles.imageSection}>
+            <img src="https://via.placeholder.com/400" alt="Interview" className={styles.image} />
+          </div>
+        </div>
+
+        {/* Ratings Section */}
+        <div className={styles.ratingsGrid}>
+          <RatingCard rating={4} feedback="Great platform! Helped me land my dream job!" />
+          <RatingCard rating={5} feedback="Very intuitive and easy to use." />
+          <RatingCard rating={3} feedback="Good, but could use more features." />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <Routes>
+        <Route path="/job-description" element={<JobPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
