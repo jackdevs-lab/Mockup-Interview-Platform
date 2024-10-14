@@ -4,7 +4,12 @@ import RatingCard from './components/RatingCard';
 import JobPage from './components/JobPage';
 import styles from './App.module.css';
  import './index.css';
-function App() {
+ function App() {
+  const openInNewTab = (url) => {
+    // Open a new tab
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) newWindow.opener = null; // Prevent reference back to the original window
+  };
   return (
     <Router>
       <div className={styles.app}>
@@ -25,9 +30,12 @@ function App() {
           <div className={styles.textSection}>
             <h2 className={styles.title}>Start Your Interview</h2>
             <p className={styles.subtitle}>Click below to begin the interview process</p>
-            <Link to="/job-description">
-              <button className={styles.startButton}>Start Interview</button>
-            </Link>
+            <button
+              className={styles.startButton}
+              onClick={() => openInNewTab(`${window.location.origin}/job-description`)}
+            >
+              Start Interview
+            </button>
           </div>
 
           {/* Image */}
@@ -40,13 +48,13 @@ function App() {
         <div className={styles.ratingsGrid}>
           <RatingCard rating={4} feedback="Great platform! Helped me land my dream job!" />
           <RatingCard rating={5} feedback="Very intuitive and easy to use." />
-          <RatingCard rating={3} feedback="Good, but could use more features." />
+          <RatingCard rating={5} feedback="Good, but could use more features." />
         </div>
       </div>
 
-      <Routes>
+     <Routes>
         <Route path="/job-description" element={<JobPage />} />
-      </Routes>
+     </Routes>
     </Router>
   );
 }
